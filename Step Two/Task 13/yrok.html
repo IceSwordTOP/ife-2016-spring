@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+  </head>
+<body>
+
+  <label>请输入北京今天空气质量：<input id="aqi-input" type="text"></label>
+  <button id="button">确认填写</button>
+
+  <div>您输入的值是：<span id="aqi-display">尚无录入</span></div>
+
+<script type="text/javascript">
+
+(function() {
+  /*
+  在注释下方写下代码
+  给按钮button绑定一个点击事件
+  在事件处理函数中
+  获取aqi-input输入的值，并显示在aqi-display中
+  */
+  /* init */
+  var oInput = document.getElementById("aqi-input");
+  var oDisplay = document.getElementById("aqi-display");
+  var oBtn = document.getElementById("button");
+
+  /* 输入判断 */
+  var reg = /^[\u4e00-\u9fa5]+$/g; // 匹配汉字
+
+  /* onblur 回车监听*/
+  oInput.onkeydown = function(){
+    var key = oInput.value.match(reg);
+    if(key && (event.keyCode === 13)) { // enter code is 13
+      changeDisplay();
+      return false; // return false could avoid missing value
+    }
+  }
+
+  /* onblur判断输入内容 */
+  oInput.onblur = function() {
+    var key = oInput.value.match(reg);
+    alert("请输入汉字");
+    // if key don't match regular expression,border change to red.
+    if (!key) {
+      oInput.style.border = "1px solid red";
+    }else {
+      oInput.style.border = "";
+    }
+  }
+
+  /* 定义span获取input值方法 */
+  function changeDisplay() {
+    var inputValue = oInput.value;
+    var key = oInput.value.match(reg);
+    // if key don't match reg, disable
+    if (!key) {
+      return;
+    }
+    oDisplay.innerHTML = inputValue;
+  }
+
+  /* oBtn点击事件 */
+  oBtn.onclick = function() {
+    changeDisplay();
+  }
+})();
+
+</script>
+</body>
+</html>
