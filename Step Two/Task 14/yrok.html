@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+  </head>
+<style media="screen">
+  #no1{color: red;font-weight: bolder;}
+  #no2{color: blue;font-weight: bolder;}
+  #no3{color: green;font-weight: bolder;}
+</style>
+<body>
+
+  <h3>污染城市列表</h3>
+  <ul id="aqi-list">
+<!--
+    <li>第一名：福州（样例），10</li>
+  	<li>第二名：福州（样例），10</li> -->
+  </ul>
+
+<script type="text/javascript">
+
+var aqiData = [
+  ["北京", 90],
+  ["上海", 50],
+  ["福州", 10],
+  ["广州", 50],
+  ["成都", 90],
+  ["西安", 100]
+];
+
+(function () {
+
+  /*
+  在注释下方编写代码
+  遍历读取aqiData中各个城市的数据
+  将空气质量指数大于60的城市显示到aqi-list的列表中
+  */
+  /**
+   *@description 遍历读取aqiData中各个城市的数据，将空气质量指数大于60的城市显示到aqi-list的列表中
+   *@property {object} oData 保存aqi-list
+   *@property {array} tempData 储存aqiData。
+   *@property {array} numChara 汉字序号
+   *@property {dataString} strData 空数组，临时储存生成的html内容字符串
+   */
+  // init
+  var oData = document.getElementById("aqi-list");
+  var tempData = aqiData;
+  var numChara = ["<span id='no1'>一</span>", "<span id='no2'>二</span>", "<span id='no3'>三</span>", "<span>四</span>", "<span>五</span>", "<span>六</span>", "<span>七</span>", "<span>八</span>", "<span>九</span>", "<span>十</span>"];
+  var strData = "";
+  /**
+   *排序
+   *@return {boolen} 降序排列
+   */
+  function sortData (a,b) {
+    return b[1]-a[1];
+  }
+  /**
+   *筛选，插入html
+   *@property {filterarray} filterData 降序排列的数组进行筛选
+   *@return {array} 筛选item[1]大于六十的数组
+   */
+  var filterData = tempData.sort(sortData).filter(function(item, index, array){
+    return (item[1]>60)
+  });
+  (function(){
+    for (var i = 0; i < filterData.length; i++) {
+      strData=strData + "<li>第"+numChara[i]+"名："+filterData[i][0]+"的空气质量:"+filterData[i][1]+"</li>";
+    }
+    document.getElementById("aqi-list").innerHTML = strData;
+  }
+)();
+})();
+
+</script>
+</body>
+</html>
