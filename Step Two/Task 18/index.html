@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task18</title>
+	<style type="text/css">
+    li{
+    	display: inline-block;
+    	padding:6px 10px;
+    	margin: 0 3px;
+    	background: red;
+    	color: #fff;
+    }
+
+	</style>
+</head>
+<body>
+	<input type="text" id="input-text">
+	<input type="button" name="btn" value="左侧入">
+	<input type="button" name="btn" value="右侧入">
+	<input type="button" name="btn" value="左侧出">
+	<input type="button" name="btn" value="右侧出">
+	<ul></ul>
+
+
+	<script type="text/javascript">
+	    //取得输入的内容
+		var text = document.getElementById("input-text");
+		var btn = document.getElementsByName("btn");
+		var ul = document.getElementsByTagName("ul")[0];
+
+
+    	btn[0].onclick = function(){
+    		if(!text.value.match(/^\d+$/)){
+    			alert("请输入数字");
+    			return;
+    		} else {
+	    		var newNode = document.createElement("li");
+	    		newNode.innerHTML = text.value;
+	    	    ul.insertBefore(newNode,ul.firstChild);
+	    	    newNode.onclick = function(){
+	    	    	ul.removeChild(newNode);
+	    	    }
+	    	    text.value = null;
+    	    }
+    	}
+
+    	btn[1].onclick = function(){
+    		if(!text.value.match(/^\d+$/)){
+    			alert("请输入数字");
+    			return;
+    		} else {
+	    		var newNode = document.createElement("li");
+	    		newNode.innerHTML = text.value;
+	    	    ul.appendChild(newNode);
+	    	    newNode.onclick = function(){
+	    	    	ul.removeChild(newNode);
+	    	    }
+	    	    text.value = null;
+    	    }
+    	}
+
+    	btn[2].onclick = function(){
+    		if(ul.hasChildNodes()) {
+    			alert(ul.firstChild.innerHTML);
+    			ul.removeChild(ul.firstChild);
+    		} else {
+    			alert("队列为空");
+    			return false;
+    		}
+    	    
+    	}
+
+    	btn[3].onclick = function(){
+    	    if(ul.hasChildNodes()) {
+    			alert(ul.lastChild.innerHTML);
+    			ul.removeChild(ul.lastChild);
+    		} else {
+    			alert("队列为空");
+    			return false;
+    		}
+    	}
+            
+
+	</script>
+</body>
+</html>
